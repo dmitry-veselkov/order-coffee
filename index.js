@@ -140,18 +140,35 @@ function getDrinksWord(count) {
 
 
 function getDrinksData() {
-    return [
-        {
-            'title': 'Капучино',
-            'milk': 'обычное',
-            'dop': []
-        },
-        {
-            'title': 'Какао',
-            'milk': 'соевое',
-            'dop': ['зефирки', 'шоколад']
-        }
-    ]
+    const drinks = [];
+    const fieldsets = document.querySelectorAll('.beverage');
+
+    fieldsets.forEach((fieldset) => {
+        const select = fieldset.querySelector('select');
+        const beverageName = select.options[select.selectedIndex].text;
+
+        const selectedMilkRadio = fieldset.querySelector('input[type="radio"]:checked');
+        const milkName = selectedMilkRadio
+            ? selectedMilkRadio.nextElementSibling.textContent.trim()
+            : '';
+
+        const dop = [];
+        const selectedCheckboxes = fieldset.querySelectorAll('input[type="checkbox"]:checked');
+        selectedCheckboxes.forEach(cb => {
+            dop.push(cb.nextElementSibling.textContent.trim());
+        });
+
+        const comment = fieldset.querySelector('textarea').value;
+
+        drinks.push({
+            'title': beverageName,
+            'milk': milkName,
+            'dop': dop,
+            'comment': comment
+        });
+    });
+
+    return drinks;
 }
 
 openBtn.onclick = () => {
@@ -162,10 +179,6 @@ openBtn.onclick = () => {
     drinksCountP.textContent = `Вы заказали ${drinksCount} ${drinksWord}`;
 
     const drinksData = getDrinksData();
-    let tablesItems = [];
-    tablesItems.push('<table>');
-
-    tablesItems.push('<table>');
 };
 
 closeBtn.onclick = () => {
