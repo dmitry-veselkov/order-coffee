@@ -13,10 +13,17 @@
     margin-bottom: 10px;
 }
 
+
 .label-text {
     display: inline-block;
     width: 80px;
 }
+
+.label-text#comment {
+    display: inline-block;
+    width: 100%;
+}
+
 
 .checkbox-label {
     margin-bottom: 5px;
