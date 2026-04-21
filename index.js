@@ -140,18 +140,35 @@ function getDrinksWord(count) {
 
 
 function getDrinksData() {
-    return [
-        {
-            'title': 'Капучино',
-            'milk': 'обычное',
-            'dop': []
-        },
-        {
-            'title': 'Какао',
-            'milk': 'соевое',
-            'dop': ['зефирки', 'шоколад']
-        }
-    ]
+    const drinks = [];
+    const fieldsets = document.querySelectorAll('.beverage');
+
+    fieldsets.forEach((fieldset) => {
+        const select = fieldset.querySelector('select');
+        const beverageName = select.options[select.selectedIndex].text;
+
+        const selectedMilkRadio = fieldset.querySelector('input[type="radio"]:checked');
+        const milkName = selectedMilkRadio
+            ? selectedMilkRadio.nextElementSibling.textContent.trim()
+            : '';
+
+        const dop = [];
+        const selectedCheckboxes = fieldset.querySelectorAll('input[type="checkbox"]:checked');
+        selectedCheckboxes.forEach(cb => {
+            dop.push(cb.nextElementSibling.textContent.trim());
+        });
+
+        const comment = fieldset.querySelector('textarea').value;
+
+        drinks.push({
+            'title': beverageName,
+            'milk': milkName,
+            'dop': dop,
+            'comment': comment
+        });
+    });
+
+    return drinks;
 }
 
 const modalTable = document.querySelector('.modal-table');
@@ -164,10 +181,12 @@ openBtn.onclick = () => {
     drinksCountP.textContent = `Вы заказали ${drinksCount} ${drinksWord}`;
 
     const drinksData = getDrinksData();
-    const
+    const toTable = [`<tr><td>Напиток</td><td>Молоко</td><td>Дополнительно</td><td>Пожелания</td></tr>`];
     for (const data of drinksData) {
-
+        toTable.push(`<tr><td>${data.title}</td><td>${data.milk}</td><td>${data.dop}</td><td>${data.comment}</td></tr>`);
     }
+
+    modalTable.innerHTML = toTable.join('\n');
 };
 
 closeBtn.onclick = () => {
