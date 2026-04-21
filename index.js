@@ -98,9 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const triggerWords = /(срочно|быстрее|побыстрее|скорее|поскорее|очень нужно)/gi;
 
-            const highlightedText = text.replace(triggerWords, '<b>$&</b>');
-
-            outputArea.innerHTML = highlightedText;
+            outputArea.innerHTML = text.replace(triggerWords, '<b>$&</b>');
         }
     });
 });
