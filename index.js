@@ -154,6 +154,8 @@ function getDrinksData() {
     ]
 }
 
+const modalTable = document.querySelector('.modal-table');
+
 openBtn.onclick = () => {
     modal.style.display = "block";
 
@@ -162,10 +164,10 @@ openBtn.onclick = () => {
     drinksCountP.textContent = `Вы заказали ${drinksCount} ${drinksWord}`;
 
     const drinksData = getDrinksData();
-    let tablesItems = [];
-    tablesItems.push('<table>');
+    const
+    for (const data of drinksData) {
 
-    tablesItems.push('<table>');
+    }
 };
 
 closeBtn.onclick = () => {
